@@ -23,7 +23,26 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-    .then(() => console.log('✅ MongoDB Connected'))
+    .then(async () => {
+        console.log('✅ MongoDB Connected');
+
+        // 👇 Seed demo user
+        const demoUser = await User.findOne({ username: 'testuser' });
+
+        if (!demoUser) {
+            const hashed = await bcrypt.hash('test123', 10);
+
+            await new User({
+                username: 'testuser',
+                password: hashed,
+                role: 'user'
+            }).save();
+
+            console.log('🎯 Demo user created: testuser / test123');
+        } else {
+            console.log('ℹ️ Demo user already exists');
+        }
+    })
     .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
 app.get('/', (req, res) => {
