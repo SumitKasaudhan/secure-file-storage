@@ -17,9 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection (Compatible with older Mongoose versions)
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/secure-file-storage')
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => console.log('✅ MongoDB Connected'))
-    .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+    .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
 // User Schema
 const userSchema = new mongoose.Schema({
