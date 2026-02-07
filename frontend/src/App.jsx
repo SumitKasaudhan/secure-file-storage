@@ -4,7 +4,7 @@ import { Upload, Download, Lock, Unlock, User, LogOut, FileText, Shield, Key, Al
 import axios from 'axios';
 import './App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = "https://secure-file-storage-ll88.onrender.com";
 
 class App extends Component {
     constructor(props) {
