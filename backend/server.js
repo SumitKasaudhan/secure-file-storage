@@ -24,6 +24,10 @@ mongoose.connect(process.env.MONGODB_URI, {
     .then(() => console.log('✅ MongoDB Connected'))
     .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
+app.get('/', (req, res) => {
+    res.send('Backend is running 🚀');
+});
+
 // User Schema
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
